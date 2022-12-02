@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - ManoDerecha
+  - ManoEnemigo
+  - Caja
+  - Principal
+  - Medicina
+  - 1
+  - Enemigo
+  - Esconder
+  - ManoIzquierda
+  - ArmaEnemigo
+  - ArmaPrincipal
+  - ManoEnemigo2
+  - ArmaEnemigo2
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Suelo
+  - Water
+  - UI
+  - Player
+  - PostProccesing
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
