@@ -8,15 +8,13 @@ public class MenuDePausa : MonoBehaviour
 
     public GameObject menuPausa;
     private bool estaPausado;
-    
-    
-    // Start is called before the first frame update
+    public GameObject uiNivel;
+
     void Start()
     {
         menuPausa.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -29,22 +27,21 @@ public class MenuDePausa : MonoBehaviour
             {
                 Continuar();
             }
-            
         }
     }
-
     
     public void Pausar()
     {
         menuPausa.SetActive(true);
+        uiNivel.SetActive(false);
         Time.timeScale = 0f;
         estaPausado = true;
-
     }
     
     public void Continuar()
     {
         menuPausa.SetActive(false);
+        uiNivel.SetActive(true);
         Time.timeScale = 1f;
         estaPausado = false;
     }
@@ -55,12 +52,9 @@ public class MenuDePausa : MonoBehaviour
         SceneManager.LoadScene("menu");
     }
 
-
-
     public void Salir()
-
     {
-
         Application.Quit();
     }
+    
 }

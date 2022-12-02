@@ -5,24 +5,26 @@ using UnityEngine.UI;
 
 public class ControlDeVida : MonoBehaviour
 {
+    [Header("Objetos")]
+    public Slider barraDeVida;
     public Animator principalAnimator;
     public ControlDelPersonaje principalControl;
+    public GameObject botella;
+
+    [Header("Variables")]
     public int salud;
     public int botellasEquipadas;
-    public Slider barraDeVida;
     public bool puedeRecibirDanio;
-    public ControlMovimientoEnemigo enemigo;
-    public ControlMovimientoEnemigo2 enemigo2;
-    public GameObject botella;
+    public bool enemigoAtaca;
+    
     void Start()
     {
         salud = 100;
         botellasEquipadas = 0;
         puedeRecibirDanio = true;
-        
+        enemigoAtaca = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         barraDeVida.value = salud;
@@ -32,6 +34,7 @@ public class ControlDeVida : MonoBehaviour
             UsarMedicina();
             principalAnimator.SetTrigger("Bebe");
         }
+
         if (salud == 0)
         {
             principalAnimator.SetTrigger("Muere");
@@ -39,7 +42,7 @@ public class ControlDeVida : MonoBehaviour
             puedeRecibirDanio = false;
         }
     }
-
+    
     public void RestarSalud()
     {
         if (salud > 0)
@@ -53,6 +56,7 @@ public class ControlDeVida : MonoBehaviour
         botellasEquipadas -= 1;
     }
 
+    //Animacion de daño
     public void RecibeDanio()
     {
         principalControl.puedeMoverse = false;
@@ -60,8 +64,7 @@ public class ControlDeVida : MonoBehaviour
         principalControl.puedeAtacar = false;
         RestarSalud();
     }
-
-
+    
     public void DejaDeRecibirDanio()
     {
         principalControl.puedeMoverse = true;
@@ -69,27 +72,30 @@ public class ControlDeVida : MonoBehaviour
         principalControl.puedeAtacar = true;
     }
 
+    //Usar Objeto
     public void InicioBebe()
     {
         botella = Instantiate(botella.gameObject);
+        principalControl.puedeMoverse = false;
     }
     public void FinBebe()
     {
         Destroy(botella.gameObject);
+        principalControl.puedeMoverse = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("ArmaEnemigo"))
         {
-            if(enemigo.produceDanio && puedeRecibirDanio)
+            if(enemigoAtaca && puedeRecibirDanio)
             {
                 principalAnimator.SetTrigger("RecibeDaño");
             }
         }
         if (other.CompareTag("ArmaEnemigo2"))
         {
-            if (enemigo2.produceDanio && puedeRecibirDanio)
+            if (enemigoAtaca && puedeRecibirDanio)
             {
                 principalAnimator.SetTrigger("RecibeDaño");
             }

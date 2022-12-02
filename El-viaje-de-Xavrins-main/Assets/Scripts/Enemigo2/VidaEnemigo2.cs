@@ -5,22 +5,26 @@ using UnityEngine.UI;
 
 public class VidaEnemigo2 : MonoBehaviour
 {
-    int vidaEnemigo;
-    public bool puedeRecibirDanio;
-    public bool puedeMoverse;
+    [Header("Objetos")]
     public Animator enemigoAnimator;
     public ControlMovimientoEnemigo2 enemigoController;
     public Slider barraDeVidaEnemigo;
     public ControlDelPersonaje ataquePrincipal;
     public ControlDeVida vidaPrincipal;
+    public GameObject nubes;
+
+    [Header("Variables")]
     public int danioRecibido;
+    int vidaEnemigo;
+    public bool puedeRecibirDanio;
+    public bool puedeMoverse;
 
     void Start()
     {
         vidaEnemigo = 100;
         puedeRecibirDanio = true;
         puedeMoverse = true;
-        danioRecibido = 40;
+        danioRecibido = 35;
     }
 
     void Update()
@@ -29,6 +33,10 @@ public class VidaEnemigo2 : MonoBehaviour
         if (vidaPrincipal.salud == 0)
         {
             puedeMoverse = false;
+        }
+        if (!enemigoController.estaAtacando)
+        {
+            puedeRecibirDanio = true;
         }
     }
 
@@ -40,10 +48,7 @@ public class VidaEnemigo2 : MonoBehaviour
         }
         if (vidaEnemigo == 0)
         {
-            enemigoAnimator.SetTrigger("Muere");
-            puedeRecibirDanio = false;
-            puedeMoverse = false;
-            enemigoController.produceDanio = false;
+            StartCoroutine(SecuenciaMuerte());
         }
     }
 
@@ -72,5 +77,18 @@ public class VidaEnemigo2 : MonoBehaviour
                 enemigoAnimator.SetTrigger("Daño");
             }
         }
+    }
+    IEnumerator SecuenciaMuerte()
+    {
+        enemigoAnimator.SetTrigger("Muere");
+        puedeRecibirDanio = false;
+        puedeMoverse = false;
+        enemigoController.produceDanio = false;
+        yield return new WaitForSecondsRealtime(0.6f);
+        nubes = Instantiate(nubes.gameObject, transform.position, transform.rotation);
+        yield return new WaitForSecondsRealtime(0.75f);
+        Destroy(nubes.gameObject);
+        Destroy(this.gameObject);
+        yield return null;
     }
 }

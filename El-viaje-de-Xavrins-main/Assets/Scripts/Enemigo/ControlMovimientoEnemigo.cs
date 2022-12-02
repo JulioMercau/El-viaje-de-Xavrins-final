@@ -5,21 +5,22 @@ using UnityEngine;
 public class ControlMovimientoEnemigo : MonoBehaviour
 {
     [Header("Variables de Movimiento")]
-    public float rangoDeVision;
-    public string variableMovimiento;
-    public float velocidadMovimiento;
-    public LayerMask capaDelJugador;
-    public Transform jugador;
-    bool estaAlerta;
+    public Transform jugadorTransform;
+    public ControlDeVida vidaDelJugador;
     public Animator enemigoAnimator;
     public VidaEnemigo vidaEnemigo;
+    public LayerMask capaDelJugador;
+    public float rangoDeVision;
+    public float velocidadMovimiento;
+    public string variableMovimiento;
+    bool estaAlerta;
 
     [Header("Variables de Ataque")]
-    bool enRangoAtaque;
     public float rangoAtaque;
     public bool produceDanio;
     public bool estaAtacando;
-    
+    bool enRangoAtaque;
+
     [Header("Variables del ModoPatrulla")]
     public int rutina;
     float cronometro;
@@ -33,7 +34,7 @@ public class ControlMovimientoEnemigo : MonoBehaviour
         enRangoAtaque = false;
         produceDanio = false;
     }
-    
+
     void Update()
     {
         if (vidaEnemigo.puedeMoverse)
@@ -47,7 +48,7 @@ public class ControlMovimientoEnemigo : MonoBehaviour
             enemigoAnimator.SetFloat(variableMovimiento, 0);
             if (estaAlerta)
             {
-                Vector3 posicionJugador = new Vector3(jugador.position.x, transform.position.y, jugador.position.z);
+                Vector3 posicionJugador = new Vector3(jugadorTransform.position.x, transform.position.y, jugadorTransform.position.z);
                 transform.LookAt(posicionJugador);
                 if (!enRangoAtaque && !estaAtacando)
                 {
@@ -66,6 +67,7 @@ public class ControlMovimientoEnemigo : MonoBehaviour
         }
     }
 
+    //Visualizar el area de alerta y de ataque
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -100,6 +102,7 @@ public class ControlMovimientoEnemigo : MonoBehaviour
         }
     }
 
+    //Eventos en animaciones
     public void InicioAtaque()
     {
         estaAtacando = true;
@@ -107,13 +110,12 @@ public class ControlMovimientoEnemigo : MonoBehaviour
 
     public void ProducirDanio()
     {
-        produceDanio = true;
+        vidaDelJugador.enemigoAtaca = true;
     }
 
     public void NoProducirDanio()
     {
-        produceDanio = false;
-        vidaEnemigo.puedeRecibirDanio = true;
+        vidaDelJugador.enemigoAtaca = false;
     }
 
     public void FinAtaque()

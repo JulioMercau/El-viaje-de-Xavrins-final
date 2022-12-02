@@ -12,7 +12,6 @@ public class ControlDelPersonaje : MonoBehaviour
     float velocidadRotacionSuave;
     public string estaCorriendo;
 
-
     [Header("Salto y Suelo")]
     public Transform chequeadorDeSuelo;
     public float distanciaAlSuelo;
@@ -22,18 +21,17 @@ public class ControlDelPersonaje : MonoBehaviour
     public float gravedad = -9.81f;
     public float alturaDelSalto;
 
-    //Ataque
     [Header("Variables de Ataque")]
     public bool puedeAtacar;
     public bool puedeDaniar;
 
-    //Animacion
     [Header("Variables de Animación")]
     public Animator animator;
     public string variableMovimiento;
     public string variableSuelo;
     public bool puedeMoverse;
-   
+    public bool puedeInteractuar;
+
     [Header("Barra de Vida")]
     public ControlDeVida vidaJugador;
 
@@ -43,6 +41,7 @@ public class ControlDelPersonaje : MonoBehaviour
         puedeMoverse = true;
         puedeAtacar = true;
         puedeDaniar = false;
+        puedeInteractuar = false;
     }
 
     void Update()
@@ -58,7 +57,7 @@ public class ControlDelPersonaje : MonoBehaviour
 
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
-            Vector3 direccion = new Vector3(horizontal, 0f, vertical).normalized; //Normalized es para que al moverse en diagonal no vaya más rápido
+            Vector3 direccion = new Vector3(horizontal, 0f, vertical).normalized;
             animator.SetFloat(variableMovimiento, (Mathf.Abs(vertical) + Mathf.Abs(horizontal)));
 
             if (direccion.magnitude >= 0.1f)
@@ -93,7 +92,7 @@ public class ControlDelPersonaje : MonoBehaviour
         }
         
         //Correr
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButtonDown("Fire3") && estaEnElSuelo)
         {
             animator.SetBool(estaCorriendo, true);
         }
@@ -101,10 +100,16 @@ public class ControlDelPersonaje : MonoBehaviour
         {
             animator.SetBool(estaCorriendo, false);
         }
-       
+        //Equipar Objeto
+        if (Input.GetButtonDown("Fire2") && puedeInteractuar)
+        {
+            animator.SetTrigger("TomarObjeto");
+        }
+
     }
 
-    //Control de eventos y animaciones
+    //Control de eventos en animaciones
+    //ATAQUE
     public void Ataca()
     {
         puedeMoverse = false;
@@ -125,5 +130,16 @@ public class ControlDelPersonaje : MonoBehaviour
     public void NoProduceDanio()
     {
         puedeDaniar = false;
+    }
+    //EQUIPAR OBJETO
+    public void InicioObj()
+    {
+        puedeMoverse = false;
+        puedeInteractuar = false;
+    }
+    public void FinObj()
+    {
+        puedeMoverse = true;
+        puedeInteractuar = true;
     }
 }

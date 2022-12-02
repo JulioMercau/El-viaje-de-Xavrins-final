@@ -50517,14 +50517,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.3333334
+  - time: 1.25
     functionName: Reanudar
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.4166666
+  - time: 1.3333334
     functionName: "FinDa\xF1oEnemigo"
     data: 
     objectReferenceParameter: {fileID: 0}
