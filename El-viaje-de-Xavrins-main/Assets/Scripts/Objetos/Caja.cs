@@ -12,6 +12,7 @@ public class Caja : MonoBehaviour
     public GameObject luzCaja;
     public ControlDeVida controlVida;
     public ControlDelPersonaje principal;
+    private SoundManager soundManager;
 
     [Header("Mensajes")]
     public Image mensajeCaja;
@@ -29,6 +30,7 @@ public class Caja : MonoBehaviour
         rangoAccion = false;
         cajaAbierta = false;
         hayItem = false;
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     // Update is called once per frame
@@ -99,6 +101,11 @@ public class Caja : MonoBehaviour
     {
         item = Instantiate(item.gameObject, transform.position, transform.rotation);
         hayItem = true;
+    }
+
+    public void SonidoCaja()
+    {
+        soundManager.SeleccionDeAudio(8, 0.5f);
     }
 
     IEnumerator SecuenciaDestruccion()

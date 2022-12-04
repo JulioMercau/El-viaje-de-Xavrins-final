@@ -25,7 +25,7 @@ public class potenciadorSalto : MonoBehaviour
     {
         if (other.tag == ("Principal")){
 
-            controlador.alturaDelSalto = 25f;
+            controlador.alturaDelSalto = 35f;
 
         }
     }

@@ -31,13 +31,16 @@ public class ControlDelPersonaje : MonoBehaviour
     public string variableSuelo;
     public bool puedeMoverse;
     public bool puedeInteractuar;
+    private SoundManager soundManager;
 
     [Header("Barra de Vida")]
     public ControlDeVida vidaJugador;
 
+
     void Start()
     {
         controlador = GetComponent<CharacterController>();
+        soundManager = FindObjectOfType<SoundManager>();
         puedeMoverse = true;
         puedeAtacar = true;
         puedeDaniar = false;
@@ -141,5 +144,43 @@ public class ControlDelPersonaje : MonoBehaviour
     {
         puedeMoverse = true;
         puedeInteractuar = true;
+    }
+
+    //Control de sonidos
+    public void SonidoCamina()
+    {
+        soundManager.SeleccionDeAudio(0, 0.5f);
+    }
+    public void SonidoCorre()
+    {
+        soundManager.SeleccionDeAudio(1, 0.5f);
+    }
+    public void SonidoAtaque()
+    {
+        soundManager.SeleccionDeAudio(2, 0.5f);
+    }
+    public void SonidoGolpe()
+    {
+        soundManager.SeleccionDeAudio(3, 0.5f);
+    }
+    public void SonidoSalto()
+    {
+        soundManager.SeleccionDeAudio(4, 0.5f);
+    } 
+    public void SonidoTomaObjeto()
+    {
+        soundManager.SeleccionDeAudio(5, 0.5f);
+    }
+    public void SonidoDanio()
+    {
+        soundManager.SeleccionDeAudio(6, 0.5f);
+    }
+    public void SonidoMuerte()
+    {
+        soundManager.SeleccionDeAudio(7, 0.5f);
+    }
+    public void SonidoMedicina()
+    {
+        soundManager.SeleccionDeAudio(9, 0.5f);
     }
 }

@@ -34,6 +34,10 @@ public class VidaEnemigo : MonoBehaviour
         {
             puedeMoverse = false;
         }
+        if (!enemigoController.estaAtacando)
+        {
+            puedeRecibirDanio = true;
+        }
     }
 
     public void RecibirDanio()

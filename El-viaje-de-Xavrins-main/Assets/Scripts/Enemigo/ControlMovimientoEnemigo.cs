@@ -14,6 +14,7 @@ public class ControlMovimientoEnemigo : MonoBehaviour
     public float velocidadMovimiento;
     public string variableMovimiento;
     bool estaAlerta;
+    private SoundManager soundManager;
 
     [Header("Variables de Ataque")]
     public float rangoAtaque;
@@ -33,6 +34,7 @@ public class ControlMovimientoEnemigo : MonoBehaviour
         estaAtacando = false;
         enRangoAtaque = false;
         produceDanio = false;
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     void Update()
@@ -121,5 +123,22 @@ public class ControlMovimientoEnemigo : MonoBehaviour
     public void FinAtaque()
     {
         estaAtacando = false;
+    }
+    //Sonidos
+    public void SonidoEnemigoAtaque()
+    {
+        soundManager.SeleccionDeAudio(10, 0.5f);
+    }
+    public void SonidoEnemigoDanio()
+    {
+        soundManager.SeleccionDeAudio(11, 0.5f);
+    }
+    public void SonidoGolpe()
+    {
+        soundManager.SeleccionDeAudio(6, 0.5f);
+    }
+    public void SonidoEnemigoMuerte()
+    {
+        soundManager.SeleccionDeAudio(12, 0.5f);
     }
 }
