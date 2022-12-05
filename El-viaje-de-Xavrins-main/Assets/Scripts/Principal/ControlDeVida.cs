@@ -16,6 +16,7 @@ public class ControlDeVida : MonoBehaviour
     public int botellasEquipadas;
     public bool puedeRecibirDanio;
     public bool enemigoAtaca;
+    public bool muerto;
     
     void Start()
     {
@@ -23,6 +24,7 @@ public class ControlDeVida : MonoBehaviour
         botellasEquipadas = 0;
         puedeRecibirDanio = true;
         enemigoAtaca = false;
+        muerto = false;
     }
 
     void Update()
@@ -40,6 +42,7 @@ public class ControlDeVida : MonoBehaviour
             principalAnimator.SetTrigger("Muere");
             principalControl.puedeMoverse = false;
             puedeRecibirDanio = false;
+            muerto = true;
         }
     }
     
@@ -49,6 +52,7 @@ public class ControlDeVida : MonoBehaviour
         {
             salud -= Mathf.Min(salud,10);
         }
+       
     }
     public void UsarMedicina()
     {
