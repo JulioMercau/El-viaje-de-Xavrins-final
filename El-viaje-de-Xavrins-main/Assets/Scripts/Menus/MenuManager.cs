@@ -21,7 +21,7 @@ public class MenuManager : MonoBehaviour
     IEnumerator CargaNivel()
     {
         yield return new WaitForSecondsRealtime (2.0f);
-        SceneManager.LoadScene("nivel_1");
+        SceneManager.LoadScene("pantalla_controles");
     }
 
     IEnumerator SalirDelJuego()

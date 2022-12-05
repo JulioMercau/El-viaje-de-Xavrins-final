@@ -49707,7 +49707,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.23333333
+  - time: 0.5
     functionName: SonidoDanio
     data: 
     objectReferenceParameter: {fileID: 0}
